@@ -1,0 +1,4 @@
+E:\SteamLibrary\steamapps\common\Mount & Blade II Bannerlord\Modules\GutsAndGlory\bin\Win64_Shipping_Client\GutsAndGlory.dll
+E:\SteamLibrary\steamapps\common\Mount & Blade II Bannerlord\Modules\GutsAndGlory\bin\Win64_Shipping_Client\GutsAndGlory.pdb
+D:\GutsAndGlory\GutsAndGlory\obj\Debug\GutsAndGlory.dll
+D:\GutsAndGlory\GutsAndGlory\obj\Debug\GutsAndGlory.pdb
