@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using TaleWorlds.Core;
+using TaleWorlds.Engine;
 using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 
@@ -21,43 +23,39 @@ namespace GutsAndGlory
             }
         }
 
-        private void BreakOffBodyPartType(Agent victim, int damage, int weaponKind) // So guy is dead, do we break bodypart off, and in what way?
+        private void BreakOffBodyPartType(Agent victim, int damage, int weaponKind) // So guy is dead, do we break bodypart off, and in what style?
         {
-            victim.State = agentState;
-            if (flag)
+            // unfortunately you can't just "pop off" a mesh
+            // We have to spawn a (dead) agent in the same place
+            // In order to do this, we need to pass AgentBuildData from the guy we're killing.
+            // So first we make AgentBuildData
+            AgentBuildData agentBuildData = new AgentBuildData(victim.Character);
+            agentBuildData.Team(victim.Team); // I believe we must specify the team they're on
+            agentBuildData.InitialFrame(new MatrixFrame // Specify where in world the new agent is
             {
-                this.KillAgent(agent);
-            }
-            agent.AgentVisuals.SetVoiceDefinitionIndex(-1, 0f);
-            AgentBuildData agentBuildData = new AgentBuildData(agent.Character);
-            agentBuildData.NoHorses(true);
-            agentBuildData.NoWeapons(true);
-            agentBuildData.NoArmor(false);
-            agentBuildData.Team(Mission.Current.PlayerEnemyTeam);
-            agentBuildData.TroopOrigin(agent.Origin);
-            agentBuildData.InitialFrame(new MatrixFrame
-            {
-                origin = agent.Position + agent.LookDirection * -0.75f,
-                rotation = agent.Frame.rotation
+                origin = victim.Position + victim.LookDirection * -0.75f,
+                rotation = victim.Frame.rotation
             });
-            Agent agent2 = Mission.Current.SpawnAgent(agentBuildData, false, 0);
-            List<string> list = new List<string>();
-            list.Add("[" + agent.Name + "]");
-            foreach (Mesh mesh in agent2.AgentVisuals.GetSkeleton().GetAllMeshes())
+
+            Agent victimPoppedMesh = Mission.Current.SpawnAgent(agentBuildData, false, 0); // Now we make the agent from that data
+            victimPoppedMesh.State = AgentState.Killed; // Make sure he's dead
+
+            // This is where we create the standalone limb
+            // We do this via ClearMesh(), deleting all body meshes but the one that needs to pop off
+            foreach (Mesh mesh in victimPoppedMesh.AgentVisuals.GetSkeleton().GetAllMeshes())
             {
+                List<string> bodyPart = GenerateMeshNameListFromPartHit();
                 bool flag2 = !mesh.Name.ToLower().Contains("head") && !mesh.Name.ToLower().Contains("hair") && !mesh.Name.ToLower().Contains("beard") && !mesh.Name.ToLower().Contains("eyebrow") && !mesh.Name.ToLower().Contains("helmet") && !mesh.Name.ToLower().Contains("_cap_");
                 if (flag2)
                 {
                     mesh.SetVisibilityMask((VisibilityMaskFlags)4293918720U);
                     mesh.ClearMesh();
                 }
-                list.Add(mesh.Name);
             }
-            File.WriteAllLines("meshes temp test.txt", list);
-            agent2.AgentVisuals.GetEntity().ActivateRagdoll();
-            agent2.AgentVisuals.SetVoiceDefinitionIndex(-1, 0f);
-            this.KillAgent(agent2);
-            foreach (Mesh mesh2 in agent.AgentVisuals.GetSkeleton().GetAllMeshes())
+            victimPoppedMesh.AgentVisuals.GetEntity().ActivateRagdoll();
+
+            // Now we delete the mesh of the limb / bodypart we popped off from the original Agent (victim) 
+            foreach (Mesh mesh2 in victim.AgentVisuals.GetSkeleton().GetAllMeshes())
             {
                 bool flag3 = mesh2.Name.ToLower().Contains("head") || mesh2.Name.ToLower().Contains("hair") || mesh2.Name.ToLower().Contains("beard") || mesh2.Name.ToLower().Contains("eyebrow") || mesh2.Name.ToLower().Contains("helmet") || mesh2.Name.ToLower().Contains("_cap_");
                 if (flag3)
@@ -66,12 +64,20 @@ namespace GutsAndGlory
                     mesh2.ClearMesh();
                 }
             }
-            MatrixFrame boneEntitialFrameWithIndex = agent.AgentVisuals.GetSkeleton().GetBoneEntitialFrameWithIndex((byte)agent.BoneMappingArray[HumanBone.Head]);
-            Vec3 vec = agent.AgentVisuals.GetGlobalFrame().TransformToParent(boneEntitialFrameWithIndex.origin);
-            agent.CreateBloodBurstAtLimb(13, ref vec, 0.5f + MBRandom.RandomFloat * 0.5f);
-            boneEntitialFrameWithIndex = agent2.AgentVisuals.GetSkeleton().GetBoneEntitialFrameWithIndex((byte)agent2.BoneMappingArray[HumanBone.Head]);
-            vec = agent2.AgentVisuals.GetGlobalFrame().TransformToParent(boneEntitialFrameWithIndex.origin);
-            agent2.CreateBloodBurstAtLimb(13, ref vec, 0.5f + MBRandom.RandomFloat * 0.5f);
+
+            // Learning
+            MatrixFrame boneEntitialFrameWithIndex = victim.AgentVisuals.GetSkeleton().GetBoneEntitialFrameWithIndex((byte)victim.BoneMappingArray[HumanBone.Head]);
+            Vec3 vec = victim.AgentVisuals.GetGlobalFrame().TransformToParent(boneEntitialFrameWithIndex.origin);
+            victim.CreateBloodBurstAtLimb(13, ref vec, 0.5f + MBRandom.RandomFloat * 0.5f);
+            boneEntitialFrameWithIndex = victimPoppedMesh.AgentVisuals.GetSkeleton().GetBoneEntitialFrameWithIndex((byte)victimPoppedMesh.BoneMappingArray[HumanBone.Head]);
+            vec = victimPoppedMesh.AgentVisuals.GetGlobalFrame().TransformToParent(boneEntitialFrameWithIndex.origin);
+            victimPoppedMesh.CreateBloodBurstAtLimb(13, ref vec, 0.5f + MBRandom.RandomFloat * 0.5f);
+        }
+
+        public List<string> GenerateMeshNameListFromPartHit()
+        {
+            List<string> list = new List<string>();
+            return list;
         }
     }
 }
