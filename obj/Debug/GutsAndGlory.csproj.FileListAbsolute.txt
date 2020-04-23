@@ -1,4 +1,6 @@
-E:\SteamLibrary\steamapps\common\Mount & Blade II Bannerlord\Modules\GutsAndGlory\bin\Win64_Shipping_Client\GutsAndGlory.dll
-E:\SteamLibrary\steamapps\common\Mount & Blade II Bannerlord\Modules\GutsAndGlory\bin\Win64_Shipping_Client\GutsAndGlory.pdb
 D:\GutsAndGlory\GutsAndGlory\obj\Debug\GutsAndGlory.dll
 D:\GutsAndGlory\GutsAndGlory\obj\Debug\GutsAndGlory.pdb
+D:\GutsAndGlory\GutsAndGlory\obj\Debug\GutsAndGlory.csprojResolveAssemblyReference.cache
+E:\SteamLibrary\steamapps\common\Mount & Blade II Bannerlord\Modules\GutsAndGlory\SubModule.xml
+E:\SteamLibrary\steamapps\common\Mount & Blade II Bannerlord\Modules\GutsAndGlory\GutsAndGlory.dll
+E:\SteamLibrary\steamapps\common\Mount & Blade II Bannerlord\Modules\GutsAndGlory\GutsAndGlory.pdb

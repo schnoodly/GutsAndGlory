@@ -1,37 +1,27 @@
-﻿<Module>
-  <Name value="Bannerlord Template"/>
-  <Id value="BannerlordTemplate"/>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Module>
+  <Name value="Guts and Glory"/>
+  <Id value="GutsAndGlory"/>
   <Version value="v1.0.0"/>
   <SingleplayerModule value="true"/>
   <MultiplayerModule value="false"/>
-  <Official value="false"/>
   <DependedModules>
     <DependedModule Id="Native"/>
     <DependedModule Id="SandBoxCore"/>
     <DependedModule Id="Sandbox"/>
     <DependedModule Id="CustomBattle"/>
-    <DependedModule Id="StoryMode"/>
+    <DependedModule Id="StoryMode" />
   </DependedModules>
   <SubModules>
     <SubModule>
-      <Name value="BannerlordTemplate"/>
-      <DLLName value="BannerlordTemplate.dll"/>
-      <SubModuleClassType value="BannerlordTemplateSubModule"/>
+      <Name value="GutsAndGlory"/>
+      <DLLName value="GutsAndGlory.dll"/>
+      <SubModuleClassType value="GutsAndGlory.GutsAndGlory"/>
       <Tags>
         <Tag key="DedicatedServerType" value="none" />
         <Tag key="IsNoRenderModeElement" value="false" />
       </Tags>
     </SubModule>
   </SubModules>
-  <Xmls>
-    <XmlNode>
-      <XmlName type="1" id="Items" path="customitems"/>
-    </XmlNode>
-    <XmlNode>
-      <XmlName type="1" id="SPCultures" path="customcultures"/>
-    </XmlNode>
-    <XmlNode>
-      <XmlName type="1" id="NPCCharacters" path="customcharacters"/>
-    </XmlNode>
-  </Xmls>
+  <Xmls/>
 </Module>

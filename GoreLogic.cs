@@ -8,22 +8,28 @@ using TaleWorlds.MountAndBlade;
 namespace GutsAndGlory
 {
     public class GoreLogic : MissionLogic
-    {
-        public override void OnAgentHit(Agent affectedAgent, Agent affectorAgent, int damage, int weaponKind, int currentWeaponUsageIndex)
+    { 
+
+        public override void OnRegisterBlow(Agent attacker, Agent victim, GameEntity realHitEntity, Blow b, AttackCollisionData collisionData)
         {
-            if (affectedAgent.Character != null && affectorAgent != null && affectorAgent.Character != null && affectedAgent.State == AgentState.Active)
+            if (victim.Character != null && attacker != null && attacker.Character != null && victim.State == AgentState.Active)
             {
-                bool isFatal = affectedAgent.Health - (float)damage < 1f;
-                bool isTeamKill = affectedAgent.Team.Side == affectorAgent.Team.Side;
-                affectorAgent.Origin.OnScoreHit(affectedAgent.Character, damage, isFatal, isTeamKill, weaponKind, currentWeaponUsageIndex);
+                int damage = b.InflictedDamage;
+                bool isFatal = victim.Health - (float)damage < 1f;
                 if (isFatal)
                 {
-                    BreakOffBodyPartType(affectedAgent, damage, weaponKind);
+                    string msg = "";
+                    //BreakOffBodyPartType(victim, attacker, damage, b, collisionData);
+                    foreach (Mesh mesh in victim.AgentVisuals.GetSkeleton().GetAllMeshes())
+                    {
+                        msg += mesh.Name.ToLower() + " ";
+                    }
+                    GutsAndGlorySubModule.DisplayDebugMessage(msg);
                 }
             }
         }
-
-        private void BreakOffBodyPartType(Agent victim, int damage, int weaponKind) // So guy is dead, do we break bodypart off, and in what style?
+        /*
+        private void BreakOffBodyPartType(Agent victim, Agent killer, int damage, Blow b, AttackCollisionData collision) // So guy is dead, do we break bodypart off, and in what style?
         {
             // unfortunately you can't just "pop off" a mesh
             // We have to spawn a (dead) agent in the same place
@@ -79,5 +85,6 @@ namespace GutsAndGlory
             List<string> list = new List<string>();
             return list;
         }
+        */
     }
 }
