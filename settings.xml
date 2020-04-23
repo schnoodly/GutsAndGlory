@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Settings>
+  <GoreProbability value="25"/>
+  <PlayerDeath value="false"/>
+  <Debug value="true"/>
+</Settings>

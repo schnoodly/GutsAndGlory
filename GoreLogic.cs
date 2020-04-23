@@ -10,12 +10,12 @@ namespace GutsAndGlory
     public class GoreLogic : MissionLogic
     { 
 
-        public override void OnRegisterBlow(Agent attacker, Agent victim, GameEntity realHitEntity, Blow b, AttackCollisionData collisionData)
+        public override void OnRegisterBlow(Agent attacker, Agent victim, GameEntity realHitEntity, Blow b, ref AttackCollisionData collisionData)
         {
             if (victim.Character != null && attacker != null && attacker.Character != null && victim.State == AgentState.Active)
             {
                 int damage = b.InflictedDamage;
-                bool isFatal = victim.Health - (float)damage < 1f;
+                bool isFatal = victim.Health - damage < 1f;
                 if (isFatal)
                 {
                     string msg = "";

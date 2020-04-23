@@ -16,7 +16,7 @@
     <SubModule>
       <Name value="GutsAndGlory"/>
       <DLLName value="GutsAndGlory.dll"/>
-      <SubModuleClassType value="GutsAndGlory.GutsAndGlory"/>
+      <SubModuleClassType value="GutsAndGlory.GutsAndGlorySubModule"/>
       <Tags>
         <Tag key="DedicatedServerType" value="none" />
         <Tag key="IsNoRenderModeElement" value="false" />
