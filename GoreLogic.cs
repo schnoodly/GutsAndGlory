@@ -12,7 +12,8 @@ namespace GutsAndGlory
 
         public override void OnRegisterBlow(Agent attacker, Agent victim, GameEntity realHitEntity, Blow b, ref AttackCollisionData collisionData)
         {
-            if (victim.Character != null && attacker != null && attacker.Character != null && victim.State == AgentState.Active)
+            InformationManager.DisplayMessage(new InformationMessage("Character hit!"));
+            if (victim.Character != null && attacker != null && attacker.Character != null)
             {
                 int damage = b.InflictedDamage;
                 bool isFatal = victim.Health - damage < 1f;
@@ -24,8 +25,12 @@ namespace GutsAndGlory
                     {
                         msg += mesh.Name.ToLower() + " ";
                     }
-                    GutsAndGlorySubModule.DisplayDebugMessage(msg);
+                    GutsAndGlorySubModule.DisplayMessage("BodyParts: " + msg, 16711680U);
                 }
+            }
+            else
+            {
+                GutsAndGlorySubModule.DisplayMessage("one or more values null");
             }
         }
         /*
