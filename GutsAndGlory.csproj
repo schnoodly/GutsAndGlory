@@ -34,7 +34,16 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony, Version=2.0.0.10, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Lib.Harmony.2.0.0.10\lib\net472\0Harmony.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MBOptionScreen, Version=1.1.15.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Bannerlord.MBOptionScreen.1.1.15\lib\net472\MBOptionScreen.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -244,11 +253,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommunityPatchSubModule.cs" />
+    <Compile Include="ModOptions.cs" />
+    <Compile Include="HarmonyPostfixes.cs" />
     <Compile Include="D:\GutsAndGlory\GutsAndGlorySubModule.cs" />
     <Compile Include="GoreLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="SubModule.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -263,6 +276,8 @@
     <PostBuildEvent>
       mkdir "$(TargetDir)bin\Win64_Shipping_Client\"
       move "$(TargetDir)$(ProjectName).*" "$(TargetDir)bin\Win64_Shipping_Client\"
-  </PostBuildEvent>
+  
+move "$(TargetDir)*.dll" "$(TargetDir)bin\Win64_Shipping_Client\"
+</PostBuildEvent>
   </PropertyGroup>
 </Project>

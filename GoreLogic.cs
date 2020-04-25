@@ -8,8 +8,10 @@ using TaleWorlds.MountAndBlade;
 namespace GutsAndGlory
 {
     public class GoreLogic : MissionLogic
-    { 
+    {
+        public static GoreLogic Instance => GutsAndGlorySubModule.GoreLogic;
 
+        /*
         public override void OnRegisterBlow(Agent attacker, Agent victim, GameEntity realHitEntity, Blow b, ref AttackCollisionData collisionData)
         {
             InformationManager.DisplayMessage(new InformationMessage("Character hit!"));
@@ -33,9 +35,16 @@ namespace GutsAndGlory
                 GutsAndGlorySubModule.DisplayMessage("one or more values null");
             }
         }
-        /*
-        private void BreakOffBodyPartType(Agent victim, Agent killer, int damage, Blow b, AttackCollisionData collision) // So guy is dead, do we break bodypart off, and in what style?
+        */
+        
+        public static void BreakOffBodyPartType(Agent victim, Agent killer, float overkill, AttackCollisionData collision, Vec3 blowDir, Vec3 swingDir) // So guy is dead, do we break bodypart off, and in what style?
         {
+            string msg = "";
+            foreach (Mesh mesh in victim.AgentVisuals.GetSkeleton().GetAllMeshes())
+            {
+                msg += mesh.Name.ToLower() + ", ";
+            }
+            GutsAndGlorySubModule.DisplayMessage("BodyParts: " + msg, new Color(0f, 1f, 0f, 1f));
             // unfortunately you can't just "pop off" a mesh
             // We have to spawn a (dead) agent in the same place
             // In order to do this, we need to pass AgentBuildData from the guy we're killing.
@@ -55,7 +64,7 @@ namespace GutsAndGlory
             // We do this via ClearMesh(), deleting all body meshes but the one that needs to pop off
             foreach (Mesh mesh in victimPoppedMesh.AgentVisuals.GetSkeleton().GetAllMeshes())
             {
-                List<string> bodyPart = GenerateMeshNameListFromPartHit();
+                // List<string> bodyPart = GenerateMeshNameListFromPartHit();
                 bool flag2 = !mesh.Name.ToLower().Contains("head") && !mesh.Name.ToLower().Contains("hair") && !mesh.Name.ToLower().Contains("beard") && !mesh.Name.ToLower().Contains("eyebrow") && !mesh.Name.ToLower().Contains("helmet") && !mesh.Name.ToLower().Contains("_cap_");
                 if (flag2)
                 {
@@ -90,6 +99,5 @@ namespace GutsAndGlory
             List<string> list = new List<string>();
             return list;
         }
-        */
     }
 }
