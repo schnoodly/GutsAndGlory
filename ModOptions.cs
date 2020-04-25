@@ -6,6 +6,7 @@ using System.Linq;
 using MBOptionScreen.Attributes;
 using MBOptionScreen.Settings;
 using TaleWorlds.Localization;
+using MBOptionScreen.Attributes.v1;
 
 namespace GutsAndGlory
 {
@@ -15,11 +16,6 @@ namespace GutsAndGlory
         public override string ModuleFolderName => "GutsAndGlory";
 
         public override string Id { get; set; } = "GutsAndGlory_v1";
-
-        //private static Random random = new Random();
-        //private static string configFile = "../../Modules/GutsAndGlory/settings.xml"; // Path of Settings XML relative to Current Directory
-        //private static string currentDirectory = Directory.GetCurrentDirectory(); // Current Directory
-        //private static string settingsFilepath = System.IO.Path.Combine(currentDirectory, configFile); // Combine the parts
 
         [SettingProperty("Enabled", true, "")]
         [SettingPropertyGroup("General")]
@@ -45,19 +41,5 @@ namespace GutsAndGlory
         [SettingProperty("Chest Bisect Chance", true, "Likelihood that character gets cut in half through the torso")]
         [SettingPropertyGroup("Probabilities")]
         public int chestProbability { get; set; } = 25;
-
-
-        /*
-        private void GetConfigValues()
-        {
-            XElement settings = XElement.Load(settingsFilepath); // Load the XML file using LINQ to XML
-
-            // find settings elements and get their values
-            this.probability = Int32.Parse(settings.Elements("GoreProbability").First().Attribute("value").Value);
-            this.playerDeath = Boolean.Parse(settings.Elements("PlayerDeath").First().Attribute("value").Value);
-            this.debug = Boolean.Parse(settings.Elements("Debug").First().Attribute("value").Value);
-            this.loaded = true;
-        }
-        */
     }
 }

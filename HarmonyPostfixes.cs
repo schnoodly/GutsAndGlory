@@ -2,15 +2,16 @@
 using HarmonyLib;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.Library;
+using TaleWorlds.Core;
 
 namespace GutsAndGlory
 {
     [HarmonyPatch(typeof(Mission), "MeleeHitCallback")]
     internal static class MeleeHitCallbackPatch
     {
-        private static void Postfix(Agent victim, Agent killer, Vec3 blowDir, Vec3 swingDir, ref AttackCollisionData collisionData)
+        private static void Postfix(ref AttackCollisionData collisionData, Agent victim, Agent killer, Vec3 blowDir, Vec3 swingDir)
         {
-            GutsAndGlorySubModule.DisplayMessage("Agent " + victim.Name + " was hit!", new Color(0f, 1f, 0f, 1f));
+            InformationManager.DisplayMessage(new InformationMessage("[DEBUG] Damage was done"));
             bool flag = collisionData.CollisionResult == CombatCollisionResult.Parried || collisionData.CollisionResult == CombatCollisionResult.Blocked || collisionData.CollisionResult == CombatCollisionResult.ChamberBlocked;
             if (!flag && victim != null && victim.IsHuman && collisionData.CollisionBoneIndex != -1)
             {
