@@ -23,22 +23,22 @@ namespace GutsAndGlory
         [SettingProperty("Enable Player Death", true, "")]
         [SettingPropertyGroup("General")]
         public bool playerEnabled { get; set; } = true;
-        [SettingProperty("Dismemberment Damage Overkill Threshold", true, "")]
+        [SettingProperty("Dismemberment Damage Overkill Threshold", 0, 200, true, "")]
         [SettingPropertyGroup("General")]
-        public float damageThreshold { get; set; } = 50;
-        [SettingProperty("Overall Chance", true, "The max probability for all gore.")]
+        public float damageThreshold { get; set; } = 0;
+        [SettingProperty("Overall Chance", 0, 100, true, "The max probability for all gore.")]
         [SettingPropertyGroup("Probabilities")]
         public int probability { get; set; } = 25;
-        [SettingProperty("Beheading Chance", true, "Likelihood that character loses their head")]
+        [SettingProperty("Beheading Chance", 0, 100, true, "Likelihood that character loses their head")]
         [SettingPropertyGroup("Probabilities")]
         public int headProbability { get; set; } = 25;
-        [SettingProperty("Arm Dismemberment Chance", true, "Likelihood that character loses their arm")]
+        [SettingProperty("Arm Dismemberment Chance", 0, 100, true, "Likelihood that character loses their arm")]
         [SettingPropertyGroup("Probabilities")]
         public int armProbability { get; set; } = 25;
-        [SettingProperty("Leg Dismemberment Chance", true, "Likelihood that character loses their leg")]
+        [SettingProperty("Leg Dismemberment Chance", 0, 100, true, "Likelihood that character loses their leg")]
         [SettingPropertyGroup("Probabilities")]
         public int legProbability { get; set; } = 25;
-        [SettingProperty("Chest Bisect Chance", true, "Likelihood that character gets cut in half through the torso")]
+        [SettingProperty("Chest Bisect Chance", 0, 100, true, "Likelihood that character gets cut in half through the torso")]
         [SettingPropertyGroup("Probabilities")]
         public int chestProbability { get; set; } = 25;
     }

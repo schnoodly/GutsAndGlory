@@ -2,6 +2,6 @@ E:\SteamLibrary\steamapps\common\Mount & Blade II Bannerlord\Modules\GutsAndGlor
 E:\SteamLibrary\steamapps\common\Mount & Blade II Bannerlord\Modules\GutsAndGlory\settings.xml
 E:\SteamLibrary\steamapps\common\Mount & Blade II Bannerlord\Modules\GutsAndGlory\GutsAndGlory.dll
 E:\SteamLibrary\steamapps\common\Mount & Blade II Bannerlord\Modules\GutsAndGlory\GutsAndGlory.pdb
-D:\GutsAndGlory\GutsAndGlory\obj\Debug\GutsAndGlory.csprojResolveAssemblyReference.cache
 D:\GutsAndGlory\GutsAndGlory\obj\Debug\GutsAndGlory.dll
 D:\GutsAndGlory\GutsAndGlory\obj\Debug\GutsAndGlory.pdb
+D:\GutsAndGlory\GutsAndGlory\obj\Debug\GutsAndGlory.csprojResolveAssemblyReference.cache
